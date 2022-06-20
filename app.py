@@ -2,8 +2,11 @@ import numpy as np
 from flask import Flask, request, jsonify, render_template
 from joblib import load
 import os
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
 model = load('model.joblib')
 
 @app.route("/")
@@ -20,6 +23,5 @@ def predict():
     print(return_dict)
     return return_dict
 
-port = int(os.getenv("PORT",0))
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port = 8080)
+    app.run(debug=True)
